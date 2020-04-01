@@ -267,7 +267,7 @@ There plenty of [blog posts](https://www.siteleaf.com/blog/making-your-first-jek
 
 Most of the work of getting your site to look the way you want it to is in defining the style sheets. This means learning how to write Cascading Style Sheets (CSS). Jekyll uses [Syntactically Awesome Style Sheets (Sass)](https://sass-lang.com/).
 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1920px-Sass_Logo_Color.svg.png" style="width: 200px">](https://sass-lang.com/)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1920px-Sass_Logo_Color.svg.png" width="200">](https://sass-lang.com/)
 
 > To get started with SASS check of their [guide](https://sass-lang.com/guide).
 
