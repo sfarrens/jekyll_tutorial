@@ -11,7 +11,7 @@ The objective of this tutorial is to introduce [Jekyll](https://jekyllrb.com/) a
 - [An example website in under 10 min](#An-example-website-in-under-10-min)
 - [Jekyll structure](#Jekyll-structure)
 - [Jekyll themes](#Jekyll-themes)
-- [Sass](#Sass)
+- [Customising your website](#Customising-your-website)
 
 ## Requirements
 
