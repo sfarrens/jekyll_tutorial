@@ -8,6 +8,6 @@ twitter_username: yoda
 github_username:  yoda
 
 # Build settings
-theme: jekyll-theme-architect
+theme: minima
 plugins:
   - jekyll-feed
