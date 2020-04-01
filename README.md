@@ -9,7 +9,9 @@ The objective of this tutorial is to introduce [Jekyll](https://jekyllrb.com/) a
 - [Requirements](#Requirements)
 - [Installation](#Installation)
 - [An example website in under 10 min](#An-example-website-in-under-10-min)
-- [Understanding Jekyll](#Understanding-Jekyll)
+- [Jekyll structure](#Jekyll-structure)
+- [Jekyll themes](#Jekyll-themes)
+- [Sass](#Sass)
 
 ## Requirements
 
@@ -179,11 +181,9 @@ Now you should be able to view your example site at `https://<USERNAME>.github.i
 
 > If you forked this repository it will be `https://<USERNAME>.github.io/jekyll_tutorial/`.
 
-## Understanding Jekyll
+## Jekyll structure
 
 If you made it through the first part of this tutorial you should be able to make a very basic website, but you probably don't know how everything works.
-
-In this section we will try to break everything down into pieces and look at them individually.
 
 Jekyll sites generally have the following structure:
 
@@ -223,8 +223,66 @@ Here is a very brief rundown of what each of these components do.
 - `Gemfile:` The [Gemfile](https://jekyllrb.com/docs/step-by-step/10-deployment/#gemfile) is used to fix package versions and dependencies for your website.
 - `index.html:` This is where you set the content for your home page. It can be defined in either HTML or markdown. Other static pages are similarly defined in the root directory.
 
+> To get a more in depth understanding of each of these components I recommend following the Jekyll [Step by Step tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/).
+
 You will probably notice that in the earlier example site many of these files and directories were missing. This is because much of this content is often hidden in the Jekyll template you are using.
 
-### Jekyll themes
+## Jekyll themes
 
 The default theme in Jekyll is [Minima](https://github.com/jekyll/minima) (which was used for the first example), but there are huge number of [Jekyll themes](http://jekyllthemes.org/) available online.
+
+### Changing theme offline
+
+If you want to try out a different theme locally you need to update the value of `theme` in `_config.yml`. You also need to update your `Gemfile` to download the theme by adding `gem <THEME_NAME>`.
+
+*e.g.* To use the [Cayman theme](https://pages-themes.github.io/cayman/) you would add `theme: jekyll-theme-cayman` to `_config.yml` and `gem "jekyll-theme-cayman"` to `Gemfile`.
+
+Then update your *bundle* before launching the Jekyll server.
+
+```bash
+bundle update
+bundle exec jekyll serve
+```
+
+> Be sure to read the warnings and errors as not all themes use the same *layouts*. So pages will need to updated to fit the theme requirements.
+
+### Changing theme on GitHub
+
+Changing a theme on GitHub is even simpler. In your repository, click on "Settings" and scroll down to "GitHub Pages". There is a button labelled "Change Theme" that will take you to a selection of themes you can use.
+
+This will simply update the value of `theme` in `_config.yml`.
+
+
+## Customising your website
+
+If you have decided that none of the Jekyll themes really offer what you are looking for you, you can make your own or simply modify an existing theme.
+
+### Making your own theme
+
+It is possible to create your own Jekyll theme that you can share as a template for others to use.
+
+There plenty of [blog posts](https://www.siteleaf.com/blog/making-your-first-jekyll-theme-part-1/) that explain how to do this in more detail.
+
+### Sass
+
+Most of the work of getting your site to look the way you want it to is in defining the style sheets. This means learning how to write Cascading Style Sheets (CSS). Jekyll uses [Syntactically Awesome Style Sheets (Sass)](https://sass-lang.com/).
+
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1920px-Sass_Logo_Color.svg.png" style="width: 200px">](https://sass-lang.com/)
+
+> To get started with SASS check of their [guide](https://sass-lang.com/guide).
+
+Sass has several very cool features including nesting and *mixins*. Mixins allow you define reusable pieces of CSS that you can include in your Sass files (`.scss`).
+
+Here is a quick example of how to add a shadow to a container (something I used extensively on my own site).
+
+```sass
+@mixin shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.post-container {
+  @include shadow;
+}
+```
+
+Once you get comfortable with Sass, the rest is just patience. You will define the layouts for each type of page (I ended up with 7 different layouts). In my opinion this is made easier by breaking your HTML into pieces (that you keep in `_includes`). Similarly, you can break your Sass files into pieces that can import each other.
