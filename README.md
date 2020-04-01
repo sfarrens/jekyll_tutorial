@@ -127,9 +127,9 @@ permalink: /cv/
 
 Add any content you like below the header.
 
-Finally, in the directory `_posts` with the following file name format: `year-month-day-post-title.md`.
+Finally, in the directory `_posts` create a new post with the following file name format: `year-month-day-post-title.md`.
 
-Add the following header.
+Add the following header to the post.
 
 ```html
 ---
