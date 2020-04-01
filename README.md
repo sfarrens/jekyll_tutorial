@@ -18,9 +18,9 @@ gem install jekyll bundler
 
 Please see the [installation instructions](https://jekyllrb.com/docs/installation/) on the Jekyll website for more details.
 
-## A website in 5 min
+## An example website in 5 min
 
-Now that you have Jekyll installed let's make a quick website to see how easy it is.
+Now that you have Jekyll installed let's make a quick website to see how easy it is. We we will go everything in more detail afterwards.
 
 ### Step 1 - Create a new repository
 
@@ -46,17 +46,104 @@ git checkout -b gh-pages
 
 ### Step 3 - Jekyll quickstart
 
-Next we will run throught the [Jekyll quickstart](https://jekyllrb.com/docs/) instructions. You can run these commands locally in any directory you like.
+Next we will run through the [Jekyll quickstart](https://jekyllrb.com/docs/) instructions with some minor changes.
 
-First, we create a new Jekyll site called `mysite` (or whatever you like).
+You will need run these commands in your local repository directory.
+
+> Otherwise, you can run the standard quickstart commands and copy the outputs to this directory. Be careful to copy all hidden files!
+
+First, we create a new Jekyll site in the current directory.
 
 ```bash
-jekyll new mysite
-cd mysite
+jekyll new . --force
 ```
 
-Then, we will run the Jekyll local server to see what the website looks like before uploading it.
+Then, we will launch the Jekyll local server.
 
 ```bash
 bundle exec jekyll serve
 ```
+
+You can view the website at the address specified by `Server address:`.
+
+Play around a bit then close the server by typing `ctrl+c`.
+
+### Step 4 - Basic configuration
+
+We need to add some basic information about our website, in particular where it will be deployed.
+
+Open the `_config.yml` file and update update the entries `url` and `baseurl` (repository name) to those of your GitHub repository. *e.g.* If you forked this repository they will be:
+
+```yaml
+baseurl: /jekyll_tutorial
+url: https://<USERNAME>.github.io/
+```
+
+> You can update the other entries if you want, just leave `theme` alone for now.
+
+Here is the content I will use for this demonstration.
+
+```yaml
+title: Yoda's House
+email: yoda@force.com
+description: >-
+  Very good my site is!
+baseurl: /jekyll_tutorial
+url: https://sfarrens.github.io/
+twitter_username: yoda
+github_username:  yoda
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+```
+
+Now relaunch the Jekyll server and you can keep it running for the next step.
+
+```bash
+bundle exec jekyll serve
+```
+
+You can see where some of the information is displayed.
+
+### Step 5 - Basic content
+
+To start making this look like a website lets add some example content.
+
+Open `index.markdown` and add some content below the header.
+
+Open `about.markdown` and replace the default content below the header.
+
+Create new markdown file called `cv.md` and add the following header.
+
+```html
+---
+layout: page
+title: CV
+permalink: /cv/
+---
+```
+
+Add any content you like below the header.
+
+Finally, in the directory `_posts` with the following file name format: `year-month-day-post-title.md`.
+
+Add the following header.
+
+```html
+---
+layout: post
+title:  <Post Title>
+date:   <year-month-day>
+categories: news
+---
+```
+
+Add any content you like below the header.
+
+Play around a bit then close the server by typing `ctrl+c`.
+
+### Step 6 - Deploy the example site
+
+Now that we have something that looks like a website we can deploy it on GitHub.
