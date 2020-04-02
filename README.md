@@ -11,7 +11,7 @@ The objective of this tutorial is to introduce [Jekyll](https://jekyllrb.com/) a
 - [An example website in under 10 min](#An-example-website-in-under-10-min)
 - [Deployment](#Deployment)
 - [Customising your website](#Customising-your-website)
-- [How Jekyll works](#How Jekyll works)
+- [How Jekyll works](#How-Jekyll-works)
 
 ## Requirements
 
