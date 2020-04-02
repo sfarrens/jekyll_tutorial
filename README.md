@@ -9,9 +9,9 @@ The objective of this tutorial is to introduce [Jekyll](https://jekyllrb.com/) a
 - [Requirements](#Requirements)
 - [Installation](#Installation)
 - [An example website in under 10 min](#An-example-website-in-under-10-min)
-- [Jekyll structure](#Jekyll-structure)
-- [Jekyll themes](#Jekyll-themes)
+- [Deployment](#Deployment)
 - [Customising your website](#Customising-your-website)
+- [How Jekyll works](#How Jekyll works)
 
 ## Requirements
 
@@ -195,9 +195,101 @@ Now you should be able to view your example site at `https://<USERNAME>.github.i
 
 > If you forked this repository it will be `https://<USERNAME>.github.io/jekyll_tutorial/`. Note it may take a few minutes before the website is available.
 
-## Jekyll structure
+## Deployment
 
-If you made it through the first part of this tutorial you should be able to make a very basic website, but you probably don't know how everything works.
+In the first example we looked at how to deploy a basic Jekyll site on the `gh-pages` branch of any given repository. There is, however, another way in which you can create your own personal website or one for a GitHub organisation.
+
+### Personal website
+
+To create your own personal website (*i.e.* one linked to your GitHub username) you need to create a new repository on your GitHub account called `<USERNAME>.github.io`.
+
+The master branch of this repository will behave in the same way as the `gh-pages` branch in the example. So you can prepare your Jekyll site in pretty much the same way. Since the site is not linked to a normal repository, you won't have to specify the `baseurl` in `_config.yml`.
+
+Once your site is deployed it will be visible at `https://<USERNAME>.github.io/`.
+
+*e.g.* You can find my website here: [https://sfarrens.github.io/](https://sfarrens.github.io/)
+
+### Organisation website
+
+You can create a website for your GitHub organisation in exactly the same way. Simply create a repository called `<ORGANISATION_NAME>.github.io` and follow the same steps.
+
+Once your site is deployed it will be visible at `https://<ORGANISATION_NAME>.github.io/`.
+
+
+## Customising your website
+
+Now that you know how to make and deploy a basic website you will probably want to personalise it to fit your needs and taste.
+
+The easiest way to get started is by using theme.
+
+### Jekyll themes
+
+The default theme in Jekyll is [Minima](https://github.com/jekyll/minima) (which was used for the first example), but there are huge number of [Jekyll themes](http://jekyllthemes.org/) available online.
+
+#### Changing theme offline
+
+If you want to try out a different theme locally you need to update the value of `theme` in `_config.yml`. You also need to update your `Gemfile` to download the theme by adding `gem <THEME_NAME>`.
+
+*e.g.* To use the [Cayman theme](https://pages-themes.github.io/cayman/) you would add `theme: jekyll-theme-cayman` to `_config.yml` and `gem "jekyll-theme-cayman"` to `Gemfile`.
+
+Then update your *bundle* before launching the Jekyll server.
+
+```bash
+bundle update
+bundle exec jekyll serve
+```
+
+> Be sure to read the warnings and errors as not all themes use the same *layouts*. So pages will need to updated to fit the theme requirements.
+
+#### Changing theme on GitHub
+
+Changing a theme on GitHub is even simpler. In your repository, click on "Settings" and scroll down to "GitHub Pages". There is a button labelled "Change Theme" that will take you to a selection of themes you can use.
+
+This will simply update the value of `theme` in `_config.yml`.
+
+#### Making your own theme
+
+If you have decided that none of the Jekyll themes really offer what you are looking for you, you can make your own or simply modify an existing theme.
+
+It is possible to create your own Jekyll theme that you can share as a template for others to use.
+
+There plenty of [blog posts](https://www.siteleaf.com/blog/making-your-first-jekyll-theme-part-1/) that explain how to do this in more detail.
+
+### Plugins
+
+There is also an extensive library of [Jekyll plugins](https://jekyllrb.com/docs/plugins/) you can install to add extra functionality to your website.
+
+You can specify the plugins you want to use in your `_config.yml` under the attribute `plugins`. *e.g.*
+
+```yaml
+plugins:
+  - jekyll-latex
+```
+
+Then, you add them to your `Gemfile` so that they are downloaded and installed.
+
+```ruby
+gem 'jekyll-latex'
+```
+
+
+## How Jekyll works
+
+If you made it through the first parts of this tutorial you should be able to make a very basic website with some personal touches, but you probably don't know how everything works.
+
+In this section we will go through everything in a bit more detail.
+
+### What does Jekyll do?
+
+Jekyll is a static site generator, which means it does not use a database (like *e.g.* WordPress).
+
+>Instead of using databases, Jekyll takes the content, renders Markdown or Textile and Liquid templates, and produces a complete, static website ready to be served by Apache HTTP Server, Nginx or another web server. Jekyll is the engine behind GitHub Pages, a GitHub feature that allows users to host websites based on their GitHub repositories for no additional cost.
+>
+> Taken from https://en.wikipedia.org/wiki/Jekyll_(software)
+
+In simple terms Jekyll automatically converts [Markdown](https://daringfireball.net/projects/markdown/) files to HTML. This allows you to more easily write content for your website.
+
+### Jekyll structure
 
 Jekyll sites generally have the following structure:
 
@@ -241,41 +333,100 @@ Here is a very brief rundown of what each of these components do.
 
 You will probably notice that in the earlier example site many of these files and directories were missing. This is because much of this content is often hidden in the Jekyll template you are using.
 
-## Jekyll themes
+### Liquid templating
 
-The default theme in Jekyll is [Minima](https://github.com/jekyll/minima) (which was used for the first example), but there are huge number of [Jekyll themes](http://jekyllthemes.org/) available online.
+Jekyll uses the [Liquid template language](https://shopify.github.io/liquid/), which allows you to include some dynamic content in your markdown/HTML files.
 
-### Changing theme offline
+For example rather than manually type the page title inside every file, you could instead create a layout that includes the following liquid object.
 
-If you want to try out a different theme locally you need to update the value of `theme` in `_config.yml`. You also need to update your `Gemfile` to download the theme by adding `gem <THEME_NAME>`.
-
-*e.g.* To use the [Cayman theme](https://pages-themes.github.io/cayman/) you would add `theme: jekyll-theme-cayman` to `_config.yml` and `gem "jekyll-theme-cayman"` to `Gemfile`.
-
-Then update your *bundle* before launching the Jekyll server.
-
-```bash
-bundle update
-bundle exec jekyll serve
+```html
+{{ page.title }}
 ```
 
-> Be sure to read the warnings and errors as not all themes use the same *layouts*. So pages will need to updated to fit the theme requirements.
+This will automatically generate the page name from the [front matter](#Front-matter-and-data). Liquid also includes operators that allow more complex behaviour. For example, you can loop through all of the posts on your site and create a list.
 
-### Changing theme on GitHub
+```html
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <h2><a href="{{ site.baseurl }}/{{ post.url }}">{{ post.title }}</a></h2>
+      {{ post.excerpt }}
+    </li>
+  {% endfor %}
+</ul>
+```  
 
-Changing a theme on GitHub is even simpler. In your repository, click on "Settings" and scroll down to "GitHub Pages". There is a button labelled "Change Theme" that will take you to a selection of themes you can use.
+> [More on this topic](https://jekyllrb.com/docs/step-by-step/02-liquid/)
 
-This will simply update the value of `theme` in `_config.yml`.
+### Front matter and data
 
+So, where does Liquid get the variables from? Well, some of them are [predefined by Jekyll](https://jekyllrb.com/docs/front-matter/), the rest are defined by you.
 
-## Customising your website
+- `site` variables (*e.g.* `site.baseurl`) are defined in your `_config.yml`.
+- `site.data` variables are defined in additional YAML files you place in the `_data` directory.
+- `page` variables are taken from the front matter of pages.
+- `post` variables are taken from the front matter of posts.
 
-If you have decided that none of the Jekyll themes really offer what you are looking for you, you can make your own or simply modify an existing theme.
+So what is "Front Matter"? This is what we referred to as a header in the first example. It includes everything enclosed within the `---` at the top of the file. You may notice that the content is also in YAML format. While `_config.yml` and `_data` are global YAML content for your site, the front matter can be thought of as local YAML content for a given page or post.
 
-### Making your own theme
+> Note Jekyll will not convert markdown files without front matter. Even empty front matter will suffice.
 
-It is possible to create your own Jekyll theme that you can share as a template for others to use.
+> [More on this topic](https://jekyllrb.com/docs/step-by-step/03-front-matter/)
 
-There plenty of [blog posts](https://www.siteleaf.com/blog/making-your-first-jekyll-theme-part-1/) that explain how to do this in more detail.
+### Layouts
+
+The most important attribute in the front matter of any page or post is the `layout`. Layouts are HTML files placed in `_layouts` that specify how a given page or post should look.
+
+Most themes will include a `default.html` file that specifies the default layout for a given page. Other layouts can inherit this layout as a base to build upon. This is done via front matter. Imagine, for example, that you want to create a layout for posts. You could create a file called `posts.html` stored in `_layouts` with the following front matter:
+
+```html
+---
+layout: default
+---
+```
+
+Below the front end you would specify the HTML specific to the layout of your posts.
+
+Here is an example from my personal website:
+
+```html
+---
+layout: default
+---
+
+<br>
+<div class="in-post-image-container">
+  <img src="{{ site.image_path }}/{{ page.image }}" class="in-post-image">
+</div>
+<br>
+<br>
+
+{{ content }}
+```
+
+Then, in the front matter of your posts, you would put:
+
+```html
+---
+layout: post
+---
+```
+
+While writing your layouts you may find that there are many pieces of reusable HTML, or that it may be easier to manage smaller files. You can break apart your HTML and store the files in `_includes`.
+
+For example, if your site has a header, you could create a file called `header.html` stored in `_includes`. Then, in your `default.html` you can simply include this fragment with Liquid.
+
+```html
+{%- include header.html -%}
+```
+
+> [More on this topic](https://jekyllrb.com/docs/step-by-step/04-layouts/)
+
+### Assets
+
+You will need a place to store your site's images, scripts and stylesheets. This is what the `assets` directory is for. The directory contents are copied to the Jekyll build (*i.e.* the `_site` directory).
+
+> [More on this topic](https://jekyllrb.com/docs/step-by-step/07-assets/)
 
 ### Sass
 
@@ -284,6 +435,12 @@ Most of the work of getting your site to look the way you want it to is in defin
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1920px-Sass_Logo_Color.svg.png" width="200">](https://sass-lang.com/)
 
 > To get started with SASS check out their [guide](https://sass-lang.com/guide).
+
+Your Sass files can be stored in the `_sass` directory. Similarly to the layouts, your stylesheets can also be broken apart into fragments and imported. For example, if you created a stylesheet just for navigation, you could import this into a general stylesheet as follows.
+
+```sass
+@import "navigation";
+```
 
 Sass has several very cool features including nesting and *mixins*. Mixins allow you define reusable pieces of CSS that you can include in your Sass files (`.scss`).
 
