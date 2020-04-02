@@ -1,18 +1,22 @@
 # Jekyll Tutorial
 
+> Author: <font color='#f78c40'>[Samuel Farrens](http://www.cosmostat.org/people/sfarrens)</font>    
+> Year: 2020  
+> Email: [samuel.farrens@cea.fr](mailto:samuel.farrens@cea.fr)  
+
 The objective of this tutorial is to introduce [Jekyll](https://jekyllrb.com/) and show you how to build a website that you can host on GitHub for free.
 
 [<img src="https://jekyllrb.com/img/logo-2x.png" width="200">](https://jekyllrb.com/)
 
 ## Contents
 
-- [Requirements](#Requirements)
-- [Installation](#Installation)
-- [An example website in under 10 min](#An-example-website-in-under-10-min)
-- [Deployment](#Deployment)
-- [Customising your website](#Customising-your-website)
-- [How Jekyll works](#How-Jekyll-works)
-- [Tips and tricks](#Tips-and-tricks)
+1. [Requirements](#Requirements)
+1. [Installation](#Installation)
+1. [An example website in under 10 min](#An-example-website-in-under-10-min)
+1. [Deployment](#Deployment)
+1. [Customising your website](#Customising-your-website)
+1. [How Jekyll works](#How-Jekyll-works)
+1. [Tips and tricks](#Tips-and-tricks)
 
 ## Requirements
 
@@ -74,9 +78,9 @@ Next we will run through the [Jekyll quickstart](https://jekyllrb.com/docs/) ins
 
 You will need run these commands in your local repository directory.
 
-> Otherwise, you can run the standard quickstart commands and copy the outputs to this directory. Be careful to copy all hidden files!
+> Otherwise, you can run the standard quickstart commands and copy the outputs to this directory. Be careful to copy all the hidden files!
 
-First, we create a new Jekyll site in the current directory.
+First, we will create a new Jekyll site in the current directory.
 
 ```bash
 jekyll new . --force
@@ -133,7 +137,7 @@ You can see where some of the information is displayed.
 
 ### Step 5 - Basic content
 
-To start making this look like a website lets add some example content.
+Let's add some example content to start making this look like a website .
 
 Open `index.markdown` and add some content below the header.
 
@@ -221,13 +225,13 @@ Once your site is deployed it will be visible at `https://<ORGANISATION_NAME>.gi
 
 Now that you know how to make and deploy a basic website you will probably want to personalise it to fit your needs and taste.
 
-The easiest way to get started is by using theme.
+The easiest way to get started is by using a theme.
 
 ### Jekyll themes
 
 The default theme in Jekyll is [Minima](https://github.com/jekyll/minima) (which was used for the first example), but there are huge number of [Jekyll themes](http://jekyllthemes.org/) available online.
 
-#### Changing theme offline
+#### Changing theme locally
 
 If you want to try out a different theme locally you need to update the value of `theme` in `_config.yml`. You also need to update your `Gemfile` to download the theme by adding `gem <THEME_NAME>`.
 
@@ -338,7 +342,7 @@ You will probably notice that in the earlier example site many of these files an
 
 Jekyll uses the [Liquid template language](https://shopify.github.io/liquid/), which allows you to include some dynamic content in your markdown/HTML files.
 
-For example, rather than manually type the page title inside every file, you could instead create a layout that includes the following liquid object.
+For example, rather than manually typing the page title inside every file, you could instead create a layout that includes the following liquid object.
 
 ```html
 {{ page.title }}
@@ -437,13 +441,13 @@ Most of the work of getting your site to look the way you want it to is in defin
 
 > To get started with SASS check out their [guide](https://sass-lang.com/guide).
 
-Your Sass files can be stored in the `_sass` directory. Similarly to the layouts, your style sheets can also be broken apart into fragments and imported. For example, if you created a style sheet just for navigation, you could import this into a general style sheet as follows.
+Your Sass files can be stored in the `_sass` directory. Similarly to the layouts, your style sheets can also be broken apart into fragments and imported. For example, if you created a style sheet just for your navigation menu called `navigation.scss`, you could import this into a general style sheet as follows.
 
 ```sass
 @import "navigation";
 ```
 
-Sass has several very cool features including nesting and *mixins*. Mixins allow you define reusable pieces of CSS that you can include in your Sass files (`.scss`).
+Sass has several very cool features including nesting and *mixins*. Mixins allow you to define reusable pieces of CSS that you can include in your Sass files (`.scss`).
 
 Here is a quick example of how to add a shadow to a container (something I used extensively on my own site).
 
