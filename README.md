@@ -193,6 +193,12 @@ git commit -m "upload jekyll content"
 Finally, push the commits to your remote GitHub repository.
 
 ```bash
+git push origin gh-pages
+```
+
+If you forked this repository, otherwise:
+
+```bash
 git push --set-upstream origin gh-pages
 ```
 
