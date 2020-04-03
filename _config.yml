@@ -1,0 +1,13 @@
+title: Yoda's House
+email: yoda@force.com
+description: >-
+  Very good my site is!
+baseurl: /jekyll_tutorial
+url: https://sfarrens.github.io/
+twitter_username: yoda
+github_username:  yoda
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
